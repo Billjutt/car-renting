@@ -1,0 +1,134 @@
+namespace org.example.carrental
+
+// ENUMS
+enum LicenseStatus {
+  o PENDING
+  o APPROVED
+  o REJECTED
+  o EXPIRED
+  o REVOKED
+}
+
+enum CarStatus {
+  o AVAILABLE
+  o SELECTED
+  o DELIVERED
+  o CHECKED
+  o RETURNED
+  o DAMAGED
+  
+
+}
+
+// ASSETS
+asset License identified by licenseId {
+  o String licenseId
+  --> Customer customer
+  o LicenseStatus status
+}
+
+asset Car identified by carId {
+  o String carId
+  o String make
+  o String model
+  o String color
+  o Integer year
+  o Double rentalRate
+  o Boolean available
+  o CarStatus status
+}
+
+// PARTICIPANTS
+participant Customer identified by customerId {
+  o String customerId
+  o String name
+  o String lastName 
+}
+
+participant Manager identified by managerId {
+  o String managerId
+  o String name
+  o String lastName 
+}
+
+participant SalesManager identified by salesmanagerId {
+  o String salesmanagerId
+  o String name
+  o String lastName 
+}
+
+participant CustomerSupport identified by customersupportId  {
+  o String customerSupportId
+  o String name
+  o String lastName 
+}
+
+// TRANSACTIONS + EVENTS
+transaction UploadLicense {
+  o String licenseId
+  --> Customer customer
+}
+
+event UploadLicenseEvent {
+  --> License license
+}
+
+transaction ApproveLicense {
+  --> License license
+  --> Manager approvingManager
+}
+
+event ApproveLicenseEvent {
+  --> License license
+  --> Manager approvingManager
+}
+
+transaction RejectLicense {
+  --> License license
+  o String closeReason
+}
+
+event RejectLicenseEvent {
+  --> License license
+  o String closeReason
+}
+
+transaction SelectCar {
+  --> Customer customer
+  o String carId
+}
+
+event SelectCarEvent {
+  --> Customer customer
+  --> Car car
+}
+
+transaction DeliverCar {
+  --> Car car
+  --> Customer customer
+}
+
+event DeliverCarEvent {
+  --> Car car
+  --> Customer customer
+}
+
+transaction CheckCar {
+  --> Car car
+}
+
+event CheckCarEvent {
+  --> Car car
+}
+
+transaction ReturnCar {
+  --> Car car
+}
+
+event ReturnCarEvent {
+  --> Car car
+}
+
+// TRANSACTIONS FOR SETUP
+transaction CreateDemoParticipants {
+}
