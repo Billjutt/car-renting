@@ -58,7 +58,7 @@ participant SalesManager identified by salesmanagerId {
 }
 
 participant CustomerSupport identified by customersupportId  {
-  o String customerSupportId
+  o String customersupportId
   o String name
   o String lastName 
 }
