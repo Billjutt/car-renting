@@ -12,7 +12,6 @@
  * limitations under the License.
  */
 
-'use strict';
 
 /* global getFactory getAssetRegistry getParticipantRegistry emit */
 
@@ -38,68 +37,36 @@ async function uploadLicense(uploadLicense) { // eslint-disable-line no-unused-v
     uploadLicenseEvent.license = license;
     emit(uploadLicenseEvent);
 }
-
 /**
- * Approve the License
- * @param {org.example.carrental.ApproveLicense} approveLicense - the ApproveLicense transaction
+ * Check and Process License Approval or Rejection
+ * @param {org.example.carrental.CheckLicense} checkLicense - the CheckLicense transaction
  * @transaction
  */
-async function approveLicense(approveLicense) { // eslint-disable-line no-unused-vars
+async function checkLicense(checkLicense) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const license = approveLicense.license;
+    const license = checkLicense.license;
 
-    if (license.status === 'REJECTED') {
-        throw new Error('This license has already been rejected');
-    } else if (license.status === 'APPROVED') {
-        throw new Error('This license has already been approved');
+    if (license.status !== 'PENDING') {
+        throw new Error('This license is in the wrong state to be processed');
+    } else {
+        if (license.status === 'EXPIRED' || license.status === 'REVOKED') {
+            license.status = 'REJECTED';
+        } else {
+            license.status = 'APPROVED';
+        }
     }
-
-    license.status = 'APPROVED';
 
     // Update the license status
     const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
     await assetRegistry.update(license);
 
     // Emit event
-    const approveLicenseEvent = factory.newEvent(namespace, 'ApproveLicenseEvent');
-    approveLicenseEvent.license = license;
-    emit(approveLicenseEvent);
-}
-
-
-/**
- * Reject the License
- * @param {org.example.carrental.RejectLicense} rejectLicense - the RejectLicense transaction
- * @transaction
- */
-async function rejectLicense(rejectLicense) { // eslint-disable-line no-unused-vars
-    const factory = getFactory();
-    const namespace = 'org.example.carrental';
-
-    const license = rejectLicense.license;
-
-    if (license.status === 'REJECTED') {
-        throw new Error('This license has already been rejected');
-    } else if (license.status === 'APPROVED') {
-        throw new Error('This license has already been approved');
-    } else if (license.status === 'EXPIRED' || license.status === 'REVOKED') {
-        throw new Error('This license is expired or revoked, and cannot be approved');
-    }
-    
-
-    license.status = 'REJECTED';
-
-    // Update the license status
-    const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
-    await assetRegistry.update(license);
-
-    // Emit event
-    const rejectLicenseEvent = factory.newEvent(namespace, 'RejectLicenseEvent');
-    rejectLicenseEvent.license = license;
-    rejectLicenseEvent.closeReason = rejectLicense.closeReason;
-    emit(rejectLicenseEvent);
+    const event = factory.newEvent(namespace, 'LicenseProcessedEvent');
+    event.license = license;
+    event.action = license.status === 'APPROVED' ? 'APPROVE' : 'REJECT';
+    emit(event);
 }
 
 
@@ -109,7 +76,7 @@ async function rejectLicense(rejectLicense) { // eslint-disable-line no-unused-v
  * @param {org.example.carrental.SelectCar} selectCar - the SelectCar transaction
  * @transaction
  */
-async function selectCar(selectCar) { // eslint-disable-line no-unused-vars
+async function selectCar(selectCar) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
@@ -126,6 +93,7 @@ async function selectCar(selectCar) { // eslint-disable-line no-unused-vars
     const licenseRegistry = await getAssetRegistry(namespace + '.License');
     const customerLicense = await licenseRegistry.get(customer.getIdentifier());
 
+    // Check if the customer's license is approved
     if (!customerLicense || customerLicense.status !== 'APPROVED') {
         throw new Error('You cannot select a car without an approved license');
     }
@@ -142,8 +110,6 @@ async function selectCar(selectCar) { // eslint-disable-line no-unused-vars
     selectCarEvent.car = car;
     emit(selectCarEvent);
 }
-
-
 /**
  * Deliver a Car
  * @param {org.example.carrental.DeliverCar} deliverCar - the DeliverCar transaction
@@ -239,7 +205,3 @@ async function returnCar(returnCar) { // eslint-disable-line no-unused-vars
     returnCarEvent.car = car;
     emit(returnCarEvent);
 }
-
-/**
- * Create the participants needed for the demo
- * @param {org.example.carrental.CreateDemoParticipants}
