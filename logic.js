@@ -51,22 +51,20 @@ async function checkLicense(checkLicense) {
     if (license.status !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
     } else {
-        if (license.status === 'EXPIRED' || license.status === 'REVOKED') {
-            license.status = 'REJECTED';
-        } else {
-            license.status = 'APPROVED';
-        }
+       
+        license.status = 'APPROVED';
+        
     }
 
     // Update the license status
     const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
     await assetRegistry.update(license);
 
-    // Emit event
+    /* Emit event
     const event = factory.newEvent(namespace, 'LicenseProcessedEvent');
     event.license = license;
     event.action = license.status === 'APPROVED' ? 'APPROVE' : 'REJECT';
-    emit(event);
+    emit(event);*/
 }
 
 

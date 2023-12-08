@@ -5,6 +5,9 @@ enum LicenseStatus {
   o PENDING
   o APPROVED
   o REJECTED
+  
+}
+enum LicenseSecurityStatus{
   o EXPIRED
   o REVOKED
 }
