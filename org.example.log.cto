@@ -51,7 +51,7 @@ abstract participant CarRenting identified by personId{
   o Address address
 }
 participant Customer extends CarRenting{
-  //license ilişkisi gerekiyor mu
+  //license releatinship needed?
   -->License license
 }
 
