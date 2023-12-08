@@ -23,10 +23,10 @@
 async function uploadLicense(uploadLicense) { // eslint-disable-line no-unused-vars
     const factory = getFactory();
     const namespace = 'org.example.carrental';
-
+     //create new car renting application
     const license = factory.newResource(namespace, 'License', uploadLicense.licenseId);
     license.customer = factory.newRelationship(namespace, 'Customer', uploadLicense.customer.getIdentifier());
-    license.status = 'PENDING';
+    license.licenseStatus = 'PENDING';
 
     // Save the license
     const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
@@ -46,9 +46,11 @@ async function checkLicense(checkLicense) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const license = checkLicense.license;
+    console.log(checkLicense)
 
-    if (license.status !== 'PENDING') {
+    const license = checkLicense.licenseStatus;
+
+    if (license !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
     } else {
        
