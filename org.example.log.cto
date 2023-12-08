@@ -93,8 +93,7 @@ event CheckLicenseEvent {
 }
 transaction SelectCar {
   --> Car car
-  o String carId
-  o CarStatus carStatus
+
 }
 
 event SelectCarEvent {
