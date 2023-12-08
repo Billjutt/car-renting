@@ -82,18 +82,19 @@ async function selectCar(tx) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const customer = tx.car.customer;
+    const customer = getCurrentParticipant()
     const carId = tx.car.carId;
+    const licenseId = tx.licenseId;
 
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     const car = await carRegistry.get(carId);
 
-    if (!car || car.available === false) {
+    /*if (car.available === false) {
         throw new Error('The selected car is not available');
-    }
+    }*/
 
     const licenseRegistry = await getAssetRegistry(namespace + '.License');
-    const customerLicense = await licenseRegistry.get(customer.getIdentifier());
+    const customerLicense = await licenseRegistry.get(licenseId);
 
     // Check if the customer's license is approved
     if (!customerLicense || customerLicense.status !== 'APPROVED') {

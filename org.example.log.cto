@@ -43,6 +43,7 @@ asset Car identified by carId {
   o Double rentalRate 
   o Boolean available
   o CarStatus carStatus
+ 
   //need to add renting day
 }
 
@@ -99,6 +100,7 @@ transaction SelectCar {
 event SelectCarEvent {
  
   --> Car car
+  o licenseId
 }
 
 transaction DeliverCar {
