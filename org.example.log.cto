@@ -19,12 +19,16 @@ enum CarStatus {
   
 
 }
+concept Address{
+  o String country
+}
 
 // ASSETS
 asset License identified by licenseId {
   o String licenseId
-  --> Customer customer
-  o LicenseStatus status
+  --> Customer customer //need concept
+  o LicenseStatus licenseStatus
+  //no need check nationality 
 }
 
 asset Car identified by carId {
@@ -33,77 +37,83 @@ asset Car identified by carId {
   o String model
   o String color
   o Integer year
-  o Double rentalRate
+  o Double rentalRate //? CAN I write this
   o Boolean available
-  o CarStatus status
+  o CarStatus carStatus
+  //need to add renting day
 }
 
 // PARTICIPANTS
-participant Customer identified by customerId {
-  o String customerId
+abstract participant CarRenting identified by personId{
+  o String personId
   o String name
   o String lastName 
+  o Address address
+}
+participant Customer extends CarRenting{
+  //license ilişkisi gerekiyor mu
+  -->License license
 }
 
-participant Manager identified by managerId {
-  o String managerId
-  o String name
-  o String lastName 
+participant Manager  extends CarRenting{
 }
 
-participant SalesManager identified by salesmanagerId {
-  o String salesmanagerId
-  o String name
-  o String lastName 
+participant SalesManager  extends CarRenting{
+  
 }
 
-participant CustomerSupport identified by customersupportId  {
-  o String customersupportId
-  o String name
-  o String lastName 
+participant CustomerSupport   extends CarRenting {
+  
 }
 
 // TRANSACTIONS + EVENTS
 transaction UploadLicense {
   o String licenseId
+  o LicenseStatus  licenseStatus
   --> Customer customer
 }
 
 event UploadLicenseEvent {
+  o LicenseStatus  licenseStatus
   --> License license
 }
 
 transaction CheckLicense {
+  o LicenseStatus  licenseStatus
   --> License license
  
 }
 
 event CheckLicenseEvent {
+  o LicenseStatus  licenseStatus
   --> License license
  
 }
 transaction SelectCar {
-  --> Customer customer
+  --> Car car
   o String carId
+  o CarStatus carStatus
 }
 
 event SelectCarEvent {
-  --> Customer customer
+ 
   --> Car car
 }
 
 transaction DeliverCar {
   --> Car car
-  --> Customer customer
+ 
+  o CarStatus carStatus
 }
 
 event DeliverCarEvent {
   --> Car car
-  --> Customer customer
+  
 }
 
 transaction CheckCar {
   --> Car car
+  o CarStatus carStatus
 }
 
 event CheckCarEvent {
@@ -112,6 +122,7 @@ event CheckCarEvent {
 
 transaction ReturnCar {
   --> Car car
+  o CarStatus carStatus
 }
 
 event ReturnCarEvent {
