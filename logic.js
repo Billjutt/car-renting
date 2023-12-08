@@ -29,7 +29,7 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
     license.licenseStatus = 'PENDING';
 
     // Save the license
-    const assetRegistry = await getAssetRegistry( namespace + '.License');
+    const assetRegistry = await getAssetRegistry(namespace + '.License');
     await assetRegistry.add(license);
 
     // Emit event
@@ -43,23 +43,24 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
  * @transaction
  */
 async function checkLicense(tx) {
+
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
     console.log(tx)
+    const license = tx.license
+    const licenseStatus = license.licenseStatus;
 
-    const license = tx.licence.licenseStatus;
-
-    if (license !== 'PENDING') {
+    if (licenseStatus !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
     } else {
        
-        license.status = 'APPROVED';
+        license.licenseStatus = 'APPROVED';
         
     }
 
     // Update the license status
-    console
+    
     const assetRegistry = await getAssetRegistry(namespace + '.License');
     await assetRegistry.update(license);
 
