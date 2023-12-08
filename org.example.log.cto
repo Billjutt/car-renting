@@ -104,8 +104,8 @@ event SelectCarEvent {
 
 transaction DeliverCar {
   --> Car car
- 
-}
+} 
+
 
 event DeliverCarEvent {
   --> Car car

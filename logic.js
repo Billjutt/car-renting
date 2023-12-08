@@ -20,12 +20,12 @@
  * @param {org.example.carrental.UploadLicense} uploadLicense - the UploadLicense transaction
  * @transaction
  */
-async function uploadLicense(uploadLicense) { // eslint-disable-line no-unused-vars
+async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
     const factory = getFactory();
     const namespace = 'org.example.carrental';
      //create new car renting application
-    const license = factory.newResource(namespace, 'License', uploadLicense.licenseId);
-    license.customer = factory.newRelationship(namespace, 'Customer', uploadLicense.customer.getIdentifier());
+    const license = factory.newResource(namespace, 'License', tx.license.licenseId);
+    license.customer = factory.newRelationship(namespace, 'Customer', tx.license.customer.getIdentifier());
     license.licenseStatus = 'PENDING';
 
     // Save the license
@@ -42,13 +42,13 @@ async function uploadLicense(uploadLicense) { // eslint-disable-line no-unused-v
  * @param {org.example.carrental.CheckLicense} checkLicense - the CheckLicense transaction
  * @transaction
  */
-async function checkLicense(checkLicense) {
+async function checkLicense(tx) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    console.log(checkLicense)
+    console.log(tx)
 
-    const license = checkLicense.licenseStatus;
+    const license = tx.licenseStatus;
 
     if (license !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
@@ -76,12 +76,12 @@ async function checkLicense(checkLicense) {
  * @param {org.example.carrental.SelectCar} selectCar - the SelectCar transaction
  * @transaction
  */
-async function selectCar(selectCar) {
+async function selectCar(tx) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const customer = selectCar.customer;
-    const carId = selectCar.carId;
+    const customer = tx.customer;
+    const carId = tx.carId;
 
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     const car = await carRegistry.get(carId);
@@ -115,12 +115,12 @@ async function selectCar(selectCar) {
  * @param {org.example.carrental.DeliverCar} deliverCar - the DeliverCar transaction
  * @transaction
  */
-async function deliverCar(deliverCar) { // eslint-disable-line no-unused-vars
+async function deliverCar(tx) { // eslint-disable-line no-unused-vars
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const car = deliverCar.car;
-    const customer = deliverCar.customer;
+    const car = tx.car;
+    const customer = tx.customer;
 
     if (car.status !== 'SELECTED') {
         throw new Error('The car must be selected before it can be delivered');
@@ -144,11 +144,11 @@ async function deliverCar(deliverCar) { // eslint-disable-line no-unused-vars
  * @param {org.example.carrental.CheckCar} checkCar - the CheckCar transaction
  * @transaction
  */
-async function checkCar(checkCar) { // eslint-disable-line no-unused-vars
+async function checkCar(tx) { // eslint-disable-line no-unused-vars
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const car = checkCar.car;
+    const car = tx.car;
 
     if (car.status !== 'DELIVERED') {
         throw new Error('The car must be delivered before it can be checked');
@@ -183,11 +183,11 @@ async function checkCar(checkCar) { // eslint-disable-line no-unused-vars
  * @param {org.example.carrental.ReturnCar} returnCar - the ReturnCar transaction
  * @transaction
  */
-async function returnCar(returnCar) { // eslint-disable-line no-unused-vars
+async function returnCar(tx) { // eslint-disable-line no-unused-vars
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const car = returnCar.car;
+    const car = tx.car;
 
     if (car.status !== 'CHECKED') {
         throw new Error('The car must be checked before it can be returned');
