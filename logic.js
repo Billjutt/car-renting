@@ -29,7 +29,7 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
     license.licenseStatus = 'PENDING';
 
     // Save the license
-    const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
+    const assetRegistry = await getAssetRegistry( namespace + '.License');
     await assetRegistry.add(license);
 
     // Emit event
@@ -48,7 +48,7 @@ async function checkLicense(tx) {
 
     console.log(tx)
 
-    const license = tx.licenseStatus;
+    const license = tx.licence.licenseStatus;
 
     if (license !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
@@ -59,7 +59,8 @@ async function checkLicense(tx) {
     }
 
     // Update the license status
-    const assetRegistry = await getAssetRegistry(license.getFullyQualifiedType());
+    console
+    const assetRegistry = await getAssetRegistry(namespace + '.License');
     await assetRegistry.update(license);
 
     /* Emit event
@@ -80,8 +81,8 @@ async function selectCar(tx) {
     const factory = getFactory();
     const namespace = 'org.example.carrental';
 
-    const customer = tx.customer;
-    const carId = tx.carId;
+    const customer = tx.car.customer;
+    const carId = tx.car.carId;
 
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     const car = await carRegistry.get(carId);
