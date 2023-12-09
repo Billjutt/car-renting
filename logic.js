@@ -119,11 +119,11 @@ async function deliverCar(tx) { // eslint-disable-line no-unused-vars
     const car = tx.car;
     const customer = tx.customer;
 
-    if (car.status !== 'SELECTED') {
+    if (car.carStatus !== 'SELECTED') {
         throw new Error('The car must be selected before it can be delivered');
     }
 
-    car.status = 'DELIVERED';
+    car.carStatus = 'DELIVERED';
 
     // Update the car status
     const carRegistry = await getAssetRegistry(namespace + '.Car');
@@ -143,11 +143,11 @@ async function checkCar(tx) { // eslint-disable-line no-unused-vars
 
     const car = tx.car;
 
-    if (car.status !== 'DELIVERED') {
+    if (car.carStatus !== 'DELIVERED') {
         throw new Error('The car must be delivered before it can be checked');
     }
 
-    if (car.status === 'DAMAGED') {
+    if (car.carStatus === 'DAMAGED') {
         // If the car is damaged, require extra payment from the customer
         // You can customize the logic for calculating and processing the extra payment
        
@@ -155,7 +155,7 @@ async function checkCar(tx) { // eslint-disable-line no-unused-vars
         throw new Error('The customer must be do extra payment for damaged');
     }
 
-    car.status = 'CHECKED';
+    car.carStatus = 'CHECKED';
 
     // Update the car status
     const carRegistry = await getAssetRegistry(namespace + '.Car');
@@ -175,11 +175,11 @@ async function returnCar(tx) { // eslint-disable-line no-unused-vars
 
     const car = tx.car;
 
-    if (car.status !== 'CHECKED') {
+    if (car.carStatus !== 'CHECKED') {
         throw new Error('The car must be checked before it can be returned');
     }
 
-    car.status = 'RETURNED';
+    car.carStatus = 'RETURNED';
     car.available = true;
 
     // Update the car status
