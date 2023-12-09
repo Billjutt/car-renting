@@ -88,10 +88,11 @@ async function selectCar(tx) {
     /*if (car.available === false) {
         throw new Error('The selected car is not available');
     }*/
-   
-    const status = tx.licenseStatus;
-      console.log(status);
-    if (status === 'APPROVED') {
+    const license = tx.license;
+    const licenseStatus = license.licenseStatus;
+    
+      console.log(licenseStatus);
+    if (licenseStatus === 'APPROVED') {
         car.available = false;
         car.carStatus = 'SELECTED';
 
