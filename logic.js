@@ -93,18 +93,19 @@ async function selectCar(tx) {
         throw new Error('The selected car is not available');
     }*/
    
+    let license = tx.license;
+
+    if (license.status === 'APPROVED') {
+        car.available = false;
+        car.status = 'SELECTED';
+
+        
+        
+    } else  {
+        throw new Error ('the customer can not select car');
+    } 
     
-    const customerLicense = await getAssetRegistry(namespace + '.License');
-    const status = await customerLicense.get(licenseStatus);
 
-     console.log(customerLicense);
-    // Check if the customer's license is approved
-    if (status !== 'APPROVED') {
-        throw new Error('You cannot select a car without an approved license');
-    }
-
-    car.available = false;
-    car.status = 'SELECTED';
 
     // Update the car status
     await carRegistry.update(car);
