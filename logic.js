@@ -94,7 +94,7 @@ async function selectCar(tx) {
     }*/
    
     let customerLicense = tx.license;
-    
+     console.log(customerLicense);
     // Check if the customer's license is approved
     if (customerLicense.licenseStatus !== 'APPROVED') {
         throw new Error('You cannot select a car without an approved license');
