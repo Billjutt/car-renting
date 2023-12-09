@@ -93,13 +93,15 @@ event CheckLicenseEvent {
 }
 transaction SelectCar {
   --> Car car
-  --> License license
+  o String licenseStatus
+     
 }
 
 event SelectCarEvent {
  
   --> Car car
-  --> License license
+  o String licenseStatus
+    
 }
 
 transaction DeliverCar {

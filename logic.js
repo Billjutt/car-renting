@@ -64,11 +64,7 @@ async function checkLicense(tx) {
     const assetRegistry = await getAssetRegistry(namespace + '.License');
     await assetRegistry.update(license);
 
-    /* Emit event
-    const event = factory.newEvent(namespace, 'LicenseProcessedEvent');
-    event.license = license;
-    event.action = license.status === 'APPROVED' ? 'APPROVE' : 'REJECT';
-    emit(event);*/
+   
 }
 
 
@@ -92,12 +88,12 @@ async function selectCar(tx) {
     /*if (car.available === false) {
         throw new Error('The selected car is not available');
     }*/
-   const customerLicense = tx.license;
-    
-      
-    if (customerLicense.licenseStatus === 'APPROVED') {
+   
+    const status = tx.licenseStatus;
+      console.log(status);
+    if (status === 'APPROVED') {
         car.available = false;
-        car.status = 'SELECTED';
+        car.carStatus = 'SELECTED';
 
         
         
@@ -110,12 +106,7 @@ async function selectCar(tx) {
     // Update the car status
     await carRegistry.update(car);
 
-    // Emit event
-    const selectCarEvent = factory.newEvent(namespace, 'SelectCarEvent');
-    selectCarEvent.customer = customer;
-    selectCarEvent.car = car;
-    emit(selectCarEvent);
-}
+}   
 /**
  * Deliver a Car
  * @param {org.example.carrental.DeliverCar} deliverCar - the DeliverCar transaction
@@ -138,11 +129,7 @@ async function deliverCar(tx) { // eslint-disable-line no-unused-vars
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     await carRegistry.update(car);
 
-    // Emit event
-    const deliverCarEvent = factory.newEvent(namespace, 'DeliverCarEvent');
-    deliverCarEvent.customer = customer;
-    deliverCarEvent.car = car;
-    emit(deliverCarEvent);
+    
 }
 
 /**
@@ -174,14 +161,7 @@ async function checkCar(tx) { // eslint-disable-line no-unused-vars
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     await carRegistry.update(car);
 
-    // Emit event
-    const checkCarEvent = factory.newEvent(namespace, 'CheckCarEvent');
-    checkCarEvent.car = car;
 
-    // You can add more event details if needed
-
-    // Emit the event
-    emit(checkCarEvent);
 }
 
 /**
@@ -206,8 +186,4 @@ async function returnCar(tx) { // eslint-disable-line no-unused-vars
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     await carRegistry.update(car);
 
-    // Emit event
-    const returnCarEvent = factory.newEvent(namespace, 'ReturnCarEvent');
-    returnCarEvent.car = car;
-    emit(returnCarEvent);
 }
