@@ -1,5 +1,4 @@
 namespace org.example.carrental
-
 // ENUMS
 enum LicenseStatus {
   o PENDING
