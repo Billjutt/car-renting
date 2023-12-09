@@ -84,8 +84,8 @@ async function selectCar(tx) {
 
     const customer = getCurrentParticipant()
     const carId = tx.car.carId;
-    const licenseId = tx.licenseId;
 
+    
     const carRegistry = await getAssetRegistry(namespace + '.Car');
     const car = await carRegistry.get(carId);
 
