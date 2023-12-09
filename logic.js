@@ -92,9 +92,8 @@ async function selectCar(tx) {
     /*if (car.available === false) {
         throw new Error('The selected car is not available');
     }*/
-
-    const licenseRegistry = await getAssetRegistry(namespace + '.License');
-    const customerLicense = await licenseRegistry.get(licenseId);
+   
+    let customerLicense = tx.license;
     
     // Check if the customer's license is approved
     if (customerLicense.licenseStatus !== 'APPROVED') {
