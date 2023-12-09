@@ -94,8 +94,8 @@ async function selectCar(tx) {
     }*/
    
     let license = tx.license;
-
-    if (license.status === 'APPROVED') {
+      
+    if (license.licenseStatus === 'APPROVED') {
         car.available = false;
         car.status = 'SELECTED';
 
