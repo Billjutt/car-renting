@@ -117,3 +117,6 @@ transaction AddCar {
 // TRANSACTIONS FOR SETUP
 transaction CreateDemoParticipants {
 }
+transaction selectCarsByColor  {
+  
+}

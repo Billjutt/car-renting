@@ -1,0 +1,6 @@
+query selectCarsByHighRentalRate {
+  description: "Select cars based on high rental rate"
+  statement:
+      SELECT org.example.carrental.Car
+          WHERE (rentalRate > 100)
+}

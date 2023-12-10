@@ -206,7 +206,31 @@ async function addCar(tx) {
     await carRegistry.add(newCar);
   }
 
- 
+/**
+ * Function to remove cars with a high rental rate
+ * @param {org.example.carrental.RemoveCarsByHighRentalRate} removeCarsByHighRentalRate - the RemoveCarsByHighRentalRate query
+ * @transaction
+ */
+async function removeCarsByHighRentalRate(tx) {
+    const namespace = 'org.example.carrental';
+
+    // Get the car registry
+    const carRegistry = await getAssetRegistry(namespace + '.Car');
+
+    // Execute the query to select cars with high rental rate
+    const results = await query('selectCarsByHighRentalRate');
+
+    for (let i = 0; i < results.length; i++) {
+        let car = results[i];
+
+    
+
+        // Remove the car from the registry
+        await carRegistry.remove(car);
+    }
+}
+
+
   
 
   
