@@ -25,18 +25,35 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
     const namespace = 'org.example.carrental';
      //create new car renting application
     const license = factory.newResource(namespace, 'License', tx.license.licenseId);
-    license.customer = factory.newRelationship(namespace, 'Customer', tx.license.customer.getIdentifier());
+    license.customer = tx.customer;
     license.licenseStatus = 'PENDING';
 
     // Save the license
     const assetRegistry = await getAssetRegistry(namespace + '.License');
     await assetRegistry.add(license);
 
-    // Emit event
-    const uploadLicenseEvent = factory.newEvent(namespace, 'UploadLicenseEvent');
-    uploadLicenseEvent.license = license;
-    emit(uploadLicenseEvent);
+   
 }
+/**
+ * Create the License asset
+ * @param {org.example.carrental.addNewCar} addNewCar - the addNewCar transaction
+ * @transaction
+ */
+async function addNewCar(tx) {
+    const ns = 'org.pqc.uk';
+    
+    // create new car
+    const factory = getFactory();
+    const newCar = factory.newResource(ns, 'Car', tx.carID);
+    newCar.make = tx.make;
+    newCar.model = tx.model;
+    newCar.owner = tx.owner;
+    newCar.status = 'ADDED';
+    
+    // add new car to the car registry
+    const carRegistry = await getAssetRegistry(ns + '.Car');
+    await carRegistry.add(newCar);
+  }
 /**
  * Check and Process License Approval or Rejection
  * @param {org.example.carrental.CheckLicense} checkLicense - the CheckLicense transaction

@@ -86,24 +86,11 @@ transaction CheckLicense {
  
 }
 
-event CheckLicenseEvent {
- 
-  --> License license
- 
-}
 transaction SelectCar {
   --> Car car
-  o License license
+  --> License license
      
 }
-
-event SelectCarEvent {
- 
-  --> Car car
-  o License license
-    
-}
-
 transaction DeliverCar {
   --> Car car
 } 
@@ -118,18 +105,9 @@ transaction CheckCar {
   --> Car car
   
 }
-
-event CheckCarEvent {
-  --> Car car
-}
-
 transaction ReturnCar {
   --> Car car
  
-}
-
-event ReturnCarEvent {
-  --> Car car
 }
 
 // TRANSACTIONS FOR SETUP
