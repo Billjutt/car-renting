@@ -110,6 +110,9 @@ transaction ReturnCar {
   --> Car car
  
 }
+transaction AddCar {
+  --> Car[] cars
+}
 
 // TRANSACTIONS FOR SETUP
 transaction CreateDemoParticipants {
