@@ -1,0 +1,121 @@
+/*
+	Administration Rule:
+    1- AdminUser and SystemAdmin can do all operations on all resources.
+*/
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+
+/* General Public Rules
+	1- All participants can read publicly available resource Car.
+*/
+
+
+/* Customer Rules
+	1- Customers can view and update their own information.
+    2- Customers can upload their driving license and select cars.
+    3- Customers can view cars.
+    4- Customers can view their rental agreements.
+*/
+rule CustomerPrivileges {
+  description: "Allow a customer to perform specific actions"
+  participant(p): "org.example.carrental.Customer"
+  operation: READ, UPDATE
+  resource(r): "org.example.carrental.Customer"
+  condition: (r.customerId == p.customerId)
+  action: ALLOW
+}
+
+rule CustomerTransactions {
+  description: "Allow a customer to upload driving license and select cars"
+  participant: "org.example.carrental.Customer"
+  operation: CREATE
+  resource: "org.example.carrental.UploadLicense"
+  action: ALLOW
+}
+
+rule CustomerViewCarsAndRentals {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.Customer"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+
+rule ManagersCheckLicense {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.Manager"
+  operation: READ
+  resource: "org.example.carrental.License"
+  action: ALLOW
+}
+
+rule ManagersCheckCar {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.Manager"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+
+rule SalesManagersCheckCar {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.SalesManager"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+
+rule SalesManagersCanAddCar {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.SalesManager"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+
+rule CustomerSupportsCanReadCheckLicense {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.CustomerSupport"
+  operation: READ
+  resource: "org.example.carrental.License"
+  action: ALLOW
+}
+rule CustomerSupportsCanCheckCar {
+  description: "Allow customers to view cars"
+  participant: "org.example.carrental.CustomerSupport"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+/* SalesManager Rules
+	1- Sales managers can check the license.
+    2- Sales managers can check the car.
+*/
+
+
+/* Manager Rules
+	1- Manager can check the license.
+    2- Manager can add the car.
+    3- Manager can check the car.
+*/
+
+
+
+/* CustomerSupport Rules
+	1- CustomerSupport can read and check the license of customer.
+    2- CustomerSupport can check the car.
+*/
