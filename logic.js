@@ -25,7 +25,8 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
     const namespace = 'org.example.carrental';
      //create new car renting application
     const license = factory.newResource(namespace, 'License', tx.license.licenseId);
-    license.customer = tx.customer;
+    license.customer = factory.newRelationship(namespace, 'Customer', tx.customer.getIdentifier());
+    console.log(customer);
     license.licenseStatus = 'PENDING';
 
     // Save the license
@@ -34,26 +35,6 @@ async function uploadLicense(tx) { // eslint-disable-line no-unused-vars
 
    
 }
-/**
- * Create the License asset
- * @param {org.example.carrental.addNewCar} addNewCar - the addNewCar transaction
- * @transaction
- */
-async function addNewCar(tx) {
-    const ns = 'org.pqc.uk';
-    
-    // create new car
-    const factory = getFactory();
-    const newCar = factory.newResource(ns, 'Car', tx.carID);
-    newCar.make = tx.make;
-    newCar.model = tx.model;
-    newCar.owner = tx.owner;
-    newCar.status = 'ADDED';
-    
-    // add new car to the car registry
-    const carRegistry = await getAssetRegistry(ns + '.Car');
-    await carRegistry.add(newCar);
-  }
 /**
  * Check and Process License Approval or Rejection
  * @param {org.example.carrental.CheckLicense} checkLicense - the CheckLicense transaction
@@ -83,9 +64,6 @@ async function checkLicense(tx) {
 
    
 }
-
-
-
 /**
  * Select a Car
  * @param {org.example.carrental.SelectCar} selectCar - the SelectCar transaction
@@ -181,7 +159,6 @@ async function checkCar(tx) { // eslint-disable-line no-unused-vars
 
 
 }
-
 /**
  * Return a Car
  * @param {org.example.carrental.ReturnCar} returnCar - the ReturnCar transaction
