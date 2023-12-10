@@ -73,6 +73,7 @@ participant CustomerSupport   extends CarRenting {
 transaction UploadLicense {
   
   --> License license
+  --> Customer customer
 }
 
 event UploadLicenseEvent {

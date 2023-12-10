@@ -182,3 +182,31 @@ async function returnCar(tx) { // eslint-disable-line no-unused-vars
     await carRegistry.update(car);
 
 }
+/**
+ * Transaction to add a new car to the Car registry
+ * @param {org.example.carrental.AddCar} addCar - the AddCar transaction
+ * @transaction
+ */
+async function addCar(tx) {
+    const factory = getFactory();
+    const namespace = 'org.example.carrental';
+  
+    // Create a new Car instance
+    const newCar = factory.newResource(namespace, 'Car', tx.carId);
+    newCar.brand = tx.brand;
+    newCar.model = tx.model;
+    newCar.color = tx.color;
+    newCar.year = tx.year;
+    newCar.rentalRate = tx.rentalRate;
+    newCar.available = true; // Assuming a new car is initially available
+    newCar.carStatus = 'AVAILABLE';
+  
+    // Add the new car to the registry
+    const carRegistry = await getAssetRegistry(namespace + '.Car');
+    await carRegistry.add(newCar);
+  }
+
+ 
+  
+
+  
