@@ -1,6 +1,14 @@
-query selectCarsByHighRentalRate {
+query removeCarsByHighRentalRate {
   description: "Select cars based on high rental rate"
   statement:
       SELECT org.example.carrental.Car
           WHERE (rentalRate > 100)
 }
+
+query selectCarsByColor {
+  description: "Select cars based on color"
+  statement:
+      SELECT org.example.carrental.Car
+          WHERE (_$color == color)
+}
+

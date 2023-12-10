@@ -218,7 +218,7 @@ async function removeCarsByHighRentalRate(tx) {
     const carRegistry = await getAssetRegistry(namespace + '.Car');
 
     // Execute the query to select cars with high rental rate
-    const results = await query('selectCarsByHighRentalRate');
+    const results = await query('RemoveCarsByHighRentalRate');
 
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
@@ -227,6 +227,29 @@ async function removeCarsByHighRentalRate(tx) {
 
         // Remove the car from the registry
         await carRegistry.remove(car);
+    }
+}
+/**
+ * Function to remove cars by color
+ * @param {org.example.carrental.SelectCarsByColor} tx - the SelectCarsByColor query
+ * @transaction
+ */
+async function selectCarsByColor(tx) {
+    const namespace = 'org.example.carrental';
+
+    // Get the car registry
+    const carRegistry = await getAssetRegistry(namespace + '.Car');
+
+    // Execute the query to select cars by color
+    const results = await query('selectCarsByColor', {
+        color: tx.car.color
+    });
+    console.log(results);
+    for (let i = 0; i < results.length; i++) {
+        let car = results[i];
+
+        // select the car from the registry
+        await carRegistry.select(car);
     }
 }
 
