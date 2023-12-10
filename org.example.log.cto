@@ -111,7 +111,7 @@ transaction ReturnCar {
  
 }
 transaction AddCar {
-  --> Car[] cars
+  --> Car[] car
 }
 
 // TRANSACTIONS FOR SETUP

@@ -192,7 +192,7 @@ async function addCar(tx) {
     const namespace = 'org.example.carrental';
   
     // Create a new Car instance
-    const newCar = factory.newResource(namespace, 'Car', tx.carId);
+    const newCar = factory.newResource(namespace, '.Car', tx.carId);
     newCar.brand = tx.brand;
     newCar.model = tx.model;
     newCar.color = tx.color;
