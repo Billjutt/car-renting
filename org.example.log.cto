@@ -121,5 +121,5 @@ transaction RemoveCarsByHighRentalRate {
   --> Car car
 }
 transaction SelectCarsByColor {
-  --> Car car
+  o Car color
 }
