@@ -263,7 +263,7 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
-    customer1.licenseId = 123;
+ 
     customer1.licenseStatus = "PENDING"
     customer1.address = { country: 'UK' }; 
     await customerRegistry.add(customer1);
@@ -271,7 +271,7 @@ async function createDemoParticipants() {
     const customer2 = factory.newResource(namespace, 'Customer', 'bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
-    customer2.licenseId = 124;
+ 
     customer2.address = { country: 'UK' }; 
     await customerRegistry.add(customer2);
 
@@ -304,11 +304,13 @@ async function createDemoParticipants() {
     const license1 = factory.newResource(namespace, 'License', 'license1');
     license1.customer = factory.newRelationship(namespace, 'Customer', 'alice');
     license1.licenseStatus = LicenseStatus.PENDING;
+    license1.licenseId = 123,
     await licenseRegistry.add(license1);
 
     const license2 = factory.newResource(namespace, 'License', 'license2');
     license2.customer = factory.newRelationship(namespace, 'Customer', 'bob');
     license2.licenseStatus = LicenseStatus.PENDING;
+    license1.licenseId = 124,
     await licenseRegistry.add(license2);
 
     // create cars
