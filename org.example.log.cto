@@ -122,7 +122,7 @@ transaction RemoveCarsByHighRentalRate {
   --> Car car
 }
 transaction SelectCarsByColor {
-  o Car color
+  --> Car color
 }
 
 //bna how ı will take 
