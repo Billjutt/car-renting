@@ -264,22 +264,31 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
-    customer1.license = factory.newRelationship(namespace, 'License', 'license')
+    customer1.license = factory.newRelationship(namespace, 'License', '0001')
     console.log(customer1);
     ID1= customer1.license.licenseId;
     
     status1 = customer1.license.licenseStatus;
    
-    customer1.address = { country: 'UK' };
+    let personAddress1 = factory.newConcept(namespace, 'Address', 'address');
+    personAddress1.country = 'UK';
+    customer1.address = personAddress1.country;
     await customerRegistry.add(customer1);
  
  
     const customer2 = factory.newResource(namespace, 'Customer', 'bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
-     
+    customer2.license = factory.newRelationship(namespace, 'License', '0002')
+    console.log(customer2);
+    ID2= customer2.license.licenseId;
+    
+    status2 = customer2.license.licenseStatus;
    
-    customer2.address = { country: 'UK' };
+    let personAddress2 = factory.newConcept(namespace, 'Address', 'address');
+    personAddress2.country = 'UK';
+    customer2.address = personAddress2.country;
+   
     await customerRegistry.add(customer2);
  
  
