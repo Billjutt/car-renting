@@ -30,28 +30,7 @@ rule NetworkAdminSystem {
     3- Customers can view cars.
     4- Customers can view their rental agreements.
 */
-rule CustomerSeeSelf {
-  description: "Allow a customer to perform specific actions"
-  participant(p): "org.example.carrental.Customer"
-  operation: ALL
-  resource(r): "org.example.carrental.Customer"
-  condition: (p.getIdentifier() == r.getIdentifier())
-  action: ALLOW
-}
-rule CustomerSeeCars {
-  description: "Allow a customer to see cars"
-  participant: "org.example.carrental.Customer"
-  operation: READ
-  resource: "org.example.carrental.Car"
-  action: ALLOW
-}
-rule CustomerTransactions {
-  description: "Allow a customer to upload driving license"
-  participant: "org.example.carrental.Customer"
-  operation: ALL
-  resource: "org.example.carrental.UploadLicense"
-  action: ALLOW
-}
+
 
 rule ManagersCheckLicense {
   description: "Allow managers to check licenses"
@@ -97,6 +76,28 @@ rule CustomerSupportsCanCheckCar {
   participant: "org.example.carrental.CustomerSupport"
   operation: READ,UPDATE
   resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+rule CustomerSeeSelf {
+  description: "Allow a customer to perform specific actions"
+  participant(p): "org.example.carrental.Customer"
+  operation: ALL
+  resource(r): "org.example.carrental.Customer"
+  condition: (p.getIdentifier() == r.getIdentifier())
+  action: ALLOW
+}
+rule CustomerSeeCars {
+  description: "Allow a customer to see cars"
+  participant: "org.example.carrental.Customer"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+rule CustomerTransactions {
+  description: "Allow a customer to upload driving license"
+  participant: "org.example.carrental.Customer"
+  operation: ALL
+  resource: "org.example.carrental.UploadLicense"
   action: ALLOW
 }
 /* SalesManager Rules
