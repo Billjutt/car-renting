@@ -251,7 +251,7 @@ async function selectCarsByColor(tx) {
 }
 /**
  * Create the participants needed for the demo
- * @param {org.example.loc.CreateDemoParticipants} createDemoParticipants - the CreateDemoParticipants transaction
+ * @param {org.example.carrental.CreateDemoParticipants} createDemoParticipants - the CreateDemoParticipants transaction
  * @transaction
  */
 async function createDemoParticipants() {
@@ -263,13 +263,13 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
-    customer1.address = { country: 'UK' }; // Add appropriate country name
+    customer1.address = { country: 'UK' }; 
     await customerRegistry.add(customer1);
 
     const customer2 = factory.newResource(namespace, 'Customer', 'bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
-    customer2.address = { country: 'UK' }; // Add appropriate country name
+    customer2.address = { country: 'UK' }; 
     await customerRegistry.add(customer2);
 
     // create managers
@@ -277,7 +277,7 @@ async function createDemoParticipants() {
     const manager = factory.newResource(namespace, 'Manager', 'matias');
     manager.name = 'Matías';
     manager.lastName = 'Manager';
-    manager.address = { country: 'UK' }; // Add appropriate country name
+    manager.address = { country: 'UK' }; 
     await managerRegistry.add(manager);
 
     // create sales managers
@@ -285,7 +285,7 @@ async function createDemoParticipants() {
     const salesManager = factory.newResource(namespace, 'SalesManager', 'ella');
     salesManager.name = 'Ella';
     salesManager.lastName = 'SalesManager';
-    salesManager.address = { country: 'UK' }; // Add appropriate country name
+    salesManager.address = { country: 'UK' }; 
     await salesManagerRegistry.add(salesManager);
 
     // create customer support
@@ -293,19 +293,19 @@ async function createDemoParticipants() {
     const customerSupport = factory.newResource(namespace, 'CustomerSupport', 'charlie');
     customerSupport.name = 'Charlie';
     customerSupport.lastName = 'CustomerSupport';
-    customerSupport.address = { country: 'UK' }; // Add appropriate country name
+    customerSupport.address = { country: 'UK' }; 
     await customerSupportRegistry.add(customerSupport);
 
     // create licenses
     const licenseRegistry = await getAssetRegistry(namespace + '.License');
     const license1 = factory.newResource(namespace, 'License', 'license1');
     license1.customer = factory.newRelationship(namespace, 'Customer', 'alice');
-    license1.licenseStatus = LicenseStatus.APPROVED;
+    license1.licenseStatus = LicenseStatus.PENDING;
     await licenseRegistry.add(license1);
 
     const license2 = factory.newResource(namespace, 'License', 'license2');
     license2.customer = factory.newRelationship(namespace, 'Customer', 'bob');
-    license2.licenseStatus = LicenseStatus.APPROVED;
+    license2.licenseStatus = LicenseStatus.PENDING;
     await licenseRegistry.add(license2);
 
     // create cars
