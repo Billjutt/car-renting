@@ -1,37 +1,3 @@
-/*
-	Administration Rule:
-    1- AdminUser and SystemAdmin can do all operations on all resources.
-*/
-rule NetworkAdminUser {
-    description: "Grant business network administrators full access to user resources"
-    participant: "org.hyperledger.composer.system.NetworkAdmin"
-    operation: ALL
-    resource: "**"
-    action: ALLOW
-}
-
-rule NetworkAdminSystem {
-    description: "Grant business network administrators full access to system resources"
-    participant: "org.hyperledger.composer.system.NetworkAdmin"
-    operation: ALL
-    resource: "**"
-    action: ALLOW
-}
-
-
-/* General Public Rules
-	1- All participants can read publicly available resource Car.
-*/
-
-
-/* Customer Rules
-	1- Customers can view and update their own information.
-    2- Customers can upload their driving license and select cars.
-    3- Customers can view cars.
-    4- Customers can view their rental agreements.
-*/
-
-
 rule ManagersCheckLicense {
   description: "Allow managers to check licenses"
   participant: "org.example.carrental.Manager"
@@ -39,14 +5,7 @@ rule ManagersCheckLicense {
   resource: "org.example.carrental.License"
   action: ALLOW
 }
-rule ManagerCanSeeThemself{
-  description: "Allow manager to check cars"
-  participant(p): "org.example.carrental.Manager"
-  operation: ALL
-  resource(r): "org.example.carrental.Manager"
-  condition: (r.getIdentifier()== p.getIdentifier())
-  action: ALLOW
-}
+
 rule ManagersCheckCar {
   description: "Allow manager to check cars"
   participant: "org.example.carrental.Manager"
@@ -125,3 +84,36 @@ rule CustomerTransactions {
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
+rule ManagerCanSeeThemself{
+  description: "Allow manager to check cars"
+  participant(p): "org.example.carrental.Manager"
+  operation: ALL
+  resource(r): "org.example.carrental.Manager"
+  condition: (r.getIdentifier()== p.getIdentifier())
+  action: ALLOW
+}
+rule SystemACL {
+    description: "SystemACL to permit everything"
+    participant: "ANY"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
