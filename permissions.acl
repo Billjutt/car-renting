@@ -33,7 +33,7 @@ rule NetworkAdminSystem {
 rule CustomerPrivileges {
   description: "Allow a customer to perform specific actions"
   participant(p): "org.example.carrental.Customer"
-  operation: READ, UPDATE
+  operation: READ, UPDATE 
   resource(r): "org.example.carrental.Customer"
   condition: (r.customerId == p.customerId)
   action: ALLOW
@@ -56,48 +56,48 @@ rule CustomerViewCarsAndRentals {
 }
 
 rule ManagersCheckLicense {
-  description: "Allow customers to view cars"
+  description: "Allow managers to check licenses"
   participant: "org.example.carrental.Manager"
-  operation: READ
+  operation: ALL
   resource: "org.example.carrental.License"
   action: ALLOW
 }
 
 rule ManagersCheckCar {
-  description: "Allow customers to view cars"
+  description: "Allow manager to check cars"
   participant: "org.example.carrental.Manager"
-  operation: READ
+  operation: ALL
   resource: "org.example.carrental.Car"
   action: ALLOW
 }
 
 rule SalesManagersCheckCar {
-  description: "Allow customers to view cars"
+  description: "Allow sales manager to check cars"
   participant: "org.example.carrental.SalesManager"
-  operation: READ
+  operation: READ,UPDATE, CREATE
   resource: "org.example.carrental.Car"
   action: ALLOW
 }
 
 rule SalesManagersCanAddCar {
-  description: "Allow customers to view cars"
+  description: "Allow sales manager to add cars"
   participant: "org.example.carrental.SalesManager"
-  operation: READ
+  operation: READ,UPDATE, CREATE
   resource: "org.example.carrental.Car"
   action: ALLOW
 }
 
 rule CustomerSupportsCanReadCheckLicense {
-  description: "Allow customers to view cars"
+  description: "Allow customer support to check license"
   participant: "org.example.carrental.CustomerSupport"
-  operation: READ
+  operation: READ,UPDATE
   resource: "org.example.carrental.License"
   action: ALLOW
 }
 rule CustomerSupportsCanCheckCar {
-  description: "Allow customers to view cars"
+  description: "Allow customer support to check cars"
   participant: "org.example.carrental.CustomerSupport"
-  operation: READ
+  operation: READ,UPDATE
   resource: "org.example.carrental.Car"
   action: ALLOW
 }

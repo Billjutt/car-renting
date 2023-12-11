@@ -43,8 +43,8 @@ asset Car identified by carId {
   o Boolean available
   o CarStatus carStatus
  
-  //need to add renting day
 }
+  //need to add renting day
 
 // PARTICIPANTS
 abstract participant CarRenting identified by personId{
@@ -123,3 +123,5 @@ transaction RemoveCarsByHighRentalRate {
 transaction SelectCarsByColor {
   o Car color
 }
+
+//bna how ı will take 

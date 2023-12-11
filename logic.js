@@ -145,9 +145,8 @@ async function checkCar(tx) { // eslint-disable-line no-unused-vars
 
     if (car.carStatus === 'DAMAGED') {
         // If the car is damaged, require extra payment from the customer
-        // You can customize the logic for calculating and processing the extra payment
        
-        // Assuming there's a method to handle payment, adjust accordingly
+       
         throw new Error('The customer must be do extra payment for damaged');
     }
 
