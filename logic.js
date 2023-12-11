@@ -263,7 +263,8 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
-    
+    ID1= customer1.license.licenseId;
+    status1 = customer1.license.licenseStatus;
     
     customer1.address = { country: 'UK' }; 
     await customerRegistry.add(customer1);
@@ -282,8 +283,8 @@ async function createDemoParticipants() {
     manager.name = 'Matias';
     manager.lastName = 'Manager';
     manager.address = { country: 'UK' }; 
-    ID1= customer1.license.licenseId;
-    status1 = customer1.license.licenseStatus;
+    licanseID2= customer2.license.licenseId;
+    status2 = customer2.license.licenseStatus;
     await managerRegistry.add(manager);
 
     // create sales managers
@@ -292,8 +293,7 @@ async function createDemoParticipants() {
     salesManager.name = 'Ella';
     salesManager.lastName = 'SalesManager';
     salesManager.address = { country: 'UK' }; 
-    licanseID2= customer2.license.licenseId;
-    status2 = customer2.license.licenseStatus;
+   
     await salesManagerRegistry.add(salesManager);
 
     // create customer support
