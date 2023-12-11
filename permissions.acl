@@ -84,8 +84,15 @@ rule CustomerTransactions {
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
+rule CustomerCanSeeThemself{
+  description: "Allow customer can see themself"
+  participant: "org.example.carrental.Manager"
+  operation: ALL
+  resource: "org.example.carrental.Customer"
+  action: ALLOW
+}
 rule ManagerCanSeeEveryone{
-  description: "Allow manager to check cars"
+  description: "Allow manager can see everyone"
   participant: "org.example.carrental.Manager"
   operation: ALL
   resource: "org.hyperledger.composer.system.Participant"
