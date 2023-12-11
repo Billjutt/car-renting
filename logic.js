@@ -282,6 +282,8 @@ async function createDemoParticipants() {
     manager.name = 'Matias';
     manager.lastName = 'Manager';
     manager.address = { country: 'UK' }; 
+    ID1= customer1.license.licenseId;
+    status1 = customer1.license.licenseStatus;
     await managerRegistry.add(manager);
 
     // create sales managers
@@ -290,6 +292,8 @@ async function createDemoParticipants() {
     salesManager.name = 'Ella';
     salesManager.lastName = 'SalesManager';
     salesManager.address = { country: 'UK' }; 
+    licanseID2= customer2.license.licenseId;
+    status2 = customer2.license.licenseStatus;
     await salesManagerRegistry.add(salesManager);
 
     // create customer support
@@ -304,14 +308,14 @@ async function createDemoParticipants() {
     const licenseRegistry = await getAssetRegistry(namespace + '.License');
     const license1 = factory.newResource(namespace, 'License', 'license1');
     license1.customer = factory.newRelationship(namespace, 'Customer', 'alice');
-    license1.customer.licenseId = 123,
-    license1.customer.licenseStatus = 'PENDİNG'
+    license1.ID1 = 123,
+    license1.status1 = 'PENDİNG'
     await licenseRegistry.add(license1);
 
     const license2 = factory.newResource(namespace, 'License', 'license2');
     license2.customer = factory.newRelationship(namespace, 'Customer', 'bob');
-    license1.customer.licenseId = 124,
-    license1.customer.licenseStatus = 'PENDİNG'
+    license2.ID2 = 124,
+    license2.status2 = 'PENDİNG'
     await licenseRegistry.add(license2);
 
     // create cars
