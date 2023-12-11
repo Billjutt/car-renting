@@ -263,15 +263,16 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
- 
-    customer1.licenseStatus = "PENDING"
+    customer1.licenseId = licenseId;
+  
     customer1.address = { country: 'UK' }; 
     await customerRegistry.add(customer1);
 
     const customer2 = factory.newResource(namespace, 'Customer', 'bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
- 
+    customer1.licenseId = licenseId;
+    
     customer2.address = { country: 'UK' }; 
     await customerRegistry.add(customer2);
 
