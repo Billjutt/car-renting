@@ -14,7 +14,7 @@ rule NetworkAdminSystem {
     description: "Grant business network administrators full access to system resources"
     participant: "org.hyperledger.composer.system.NetworkAdmin"
     operation: ALL
-    resource: "org.hyperledger.composer.system.**"
+    resource: "**"
     action: ALLOW
 }
 
@@ -35,11 +35,11 @@ rule CustomerSeeSelf {
   participant(p): "org.example.carrental.Customer"
   operation: ALL
   resource(r): "org.example.carrental.Customer"
-  condition: (p.getIdentifier() === r.getIdentifier())
+  condition: (p.getIdentifier() == r.getIdentifier())
   action: ALLOW
 }
 rule CustomerSeeCars {
-  description: "Allow a customer to perform specific actions"
+  description: "Allow a customer to see cars"
   participant: "org.example.carrental.Customer"
   operation: READ
   resource: "org.example.carrental.Car"
