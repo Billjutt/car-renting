@@ -240,7 +240,7 @@ async function selectCarsByColor(tx) {
     const carRegistry = await getAssetRegistry(namespace + '.Car');
 
     // Execute the query to select cars by color
-    const results = await query('selectCarsByColor');
+    const results = await query('SelectCarsByColor');
     console.log(results);
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
