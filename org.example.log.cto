@@ -116,7 +116,7 @@ transaction AddCar {
 
 
 // TRANSACTIONS FOR SETUP
-transaction CreateDemoParticipants {
+transaction Init {
 }
 transaction RemoveCarsByHighRentalRate {
   --> Car car
