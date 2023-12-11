@@ -72,6 +72,14 @@ rule CustomerTransactions {
   resource: "org.example.carrental.UploadLicense"
   action: ALLOW
 }
+rule CarVisiblebleToAll {
+  description: "Allow managers to check licenses"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: READ
+  resource: "org.example.carrental.Car"
+  action: ALLOW
+}
+
 rule ManagersCheckLicense {
   description: "Allow managers to check licenses"
   participant: "org.example.carrental.Manager"
