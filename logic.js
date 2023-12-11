@@ -249,36 +249,108 @@ async function selectCarsByColor(tx) {
         await carRegistry.select(car);
     }
 }
-
-
 /**
- * Initialize the car rental system with sample data
- * @param {org.example.carrental.Init} init - the CreateDemoParticipants transaction
- * @transaction
- */
-async function init(createDemoParticipants) {
-    
-
-    const ns = 'org.example.carrental';
+* Create the participants needed for the demo
+* @param {org.example.carrental.CreateDemoParticipants} createDemoParticipants - the CreateDemoParticipants transaction
+* @transaction
+*/
+async function createDemoParticipants() {
     const factory = getFactory();
-
-    const ids = ['0001', '0002', '0003','0004'];
-    const firstNames = ['Ian', 'Sukhvinder', 'Xiaochun', 'Dery'];
-    const lastNames = ['Mitchell', 'Hara', 'Cheng', 'Gelyour'];
-    const person = ['Customer', 'Manager', 'SalesManager', 'CustomerSupport'];
-    const staff = [];
-
-    for (let i = 0; i < ids.length; i++) {
-        const newPerson = factory.newParticipant(ns, ids[i]);
-        newPerson .firstName = firstNames[i];
-        newPerson .lastName = lastNames[i];
-        
-
-        staff.push(newPerson);
-    }
-
-    const traderRegistry = await getParticipantRegistry(ns + '.Trader');
-    await traderRegistry.addAll(staff);
+    const namespace = 'org.example.carrental';
+ 
+ 
+    // create customers
+    const customerRegistry = await getParticipantRegistry(namespace + '.Customer');
+    const customer1 = factory.newResource(namespace, 'Customer', 'alice');
+    customer1.name = 'Alice';
+    customer1.lastName = 'Hamilton';
+    ID1= customer1.license.licenseId;
+    status1 = customer1.license.licenseStatus;
+   
+    customer1.address = { country: 'UK' };
+    await customerRegistry.add(customer1);
+ 
+ 
+    const customer2 = factory.newResource(namespace, 'Customer', 'bob');
+    customer2.name = 'Bob';
+    customer2.lastName = 'Appleton';
+     
+   
+    customer2.address = { country: 'UK' };
+    await customerRegistry.add(customer2);
+ 
+ 
+    // create managers
+    const managerRegistry = await getParticipantRegistry(namespace + '.Manager');
+    const manager = factory.newResource(namespace, 'Manager', 'matias');
+    manager.name = 'Matias';
+    manager.lastName = 'Manager';
+    manager.address = { country: 'UK' };
+    licanseID2= customer2.license.licenseId;
+    status2 = customer2.license.licenseStatus;
+    await managerRegistry.add(manager);
+ 
+ 
+    // create sales managers
+    const salesManagerRegistry = await getParticipantRegistry(namespace + '.SalesManager');
+    const salesManager = factory.newResource(namespace, 'SalesManager', 'ella');
+    salesManager.name = 'Ella';
+    salesManager.lastName = 'SalesManager';
+    salesManager.address = { country: 'UK' };
+  
+    await salesManagerRegistry.add(salesManager);
+ 
+ 
+    // create customer support
+    const customerSupportRegistry = await getParticipantRegistry(namespace + '.CustomerSupport');
+    const customerSupport = factory.newResource(namespace, 'CustomerSupport', 'charlie');
+    customerSupport.name = 'Charlie';
+    customerSupport.lastName = 'CustomerSupport';
+    customerSupport.address = { country: 'UK' };
+    await customerSupportRegistry.add(customerSupport);
+ 
+ 
+    // create licenses
+    const licenseRegistry = await getAssetRegistry(namespace + '.License');
+    const license1 = factory.newResource(namespace, 'License', 'license1');
+    license1.customer = factory.newRelationship(namespace, 'Customer', 'alice');
+    license1.ID1 = 123,
+    license1.status1 = 'PENDİNG'
+    await licenseRegistry.add(license1);
+ 
+ 
+    const license2 = factory.newResource(namespace, 'License', 'license2');
+    license2.customer = factory.newRelationship(namespace, 'Customer', 'bob');
+    license2.ID2 = 124,
+    license2.status2 = 'PENDİNG'
+    await licenseRegistry.add(license2);
+ 
+ 
+    // create cars
+    const carRegistry = await getAssetRegistry(namespace + '.Car');
+    const car1 = factory.newResource(namespace, 'Car', 'car1');
+    car1.brand = 'Toyota';
+    car1.model = 'Camry';
+    car1.color = 'Blue';
+    car1.year = 2022;
+    car1.rentalRate = 50.0;
+    car1.available = true;
+    car1.carStatus = CarStatus.AVAILABLE;
+    await carRegistry.add(car1);
+ 
+ 
+    const car2 = factory.newResource(namespace, 'Car', 'car2');
+    car2.brand = 'Honda';
+    car2.model = 'Accord';
+    car2.color = 'Red';
+    car2.year = 2021;
+    car2.rentalRate = 45.0;
+    car2.available = true;
+    car2.carStatus = CarStatus.AVAILABLE;
+    await carRegistry.add(car2);
+ }
+ 
+ 
 }
 
 
