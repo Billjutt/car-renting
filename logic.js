@@ -265,12 +265,11 @@ async function createDemoParticipants() {
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
     customer1.license = factory.newRelationship(namespace, 'License', '0001')
-    console.log(customer1);
-    ID1= customer1.license.licenseId;
-    
-    status1 = customer1.license.licenseStatus;
+    let license12 = factory.newRelationship(namespace, 'License', '0002')
+    license12.licenseStatus = "PENDING"
+    customer2.license = license12
    
-    let personAddress1 = factory.newConcept(namespace, 'Address', 'address');
+    let personAddress1 = factory.newConcept(namespace, 'Address', '0003');
     personAddress1.country = 'UK';
     customer1.address = personAddress1.country;
     await customerRegistry.add(customer1);
@@ -279,13 +278,11 @@ async function createDemoParticipants() {
     const customer2 = factory.newResource(namespace, 'Customer', 'bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
-    customer2.license = factory.newRelationship(namespace, 'License', '0002')
-    console.log(customer2);
-    ID2= customer2.license.licenseId;
+    let license22 = factory.newRelationship(namespace, 'License', '0002')
+    license22.licenseStatus = "PENDING"
+    customer2.license = license22
     
-    status2 = customer2.license.licenseStatus;
-   
-    let personAddress2 = factory.newConcept(namespace, 'Address', 'address');
+    let personAddress2 = factory.newConcept(namespace, 'Address', '0004');
     personAddress2.country = 'UK';
     customer2.address = personAddress2.country;
    
