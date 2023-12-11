@@ -39,7 +39,14 @@ rule ManagersCheckLicense {
   resource: "org.example.carrental.License"
   action: ALLOW
 }
-
+rule ManagerCanSeeThemself{
+  description: "Allow manager to check cars"
+  participant(p): "org.example.carrental.Manager"
+  operation: ALL
+  resource(r): "org.example.carrental.Manager"
+  condition: (r.getIdentifier()== p.getIdentifier())
+  action: ALLOW
+}
 rule ManagersCheckCar {
   description: "Allow manager to check cars"
   participant: "org.example.carrental.Manager"

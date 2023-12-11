@@ -230,7 +230,7 @@ async function removeCarsByHighRentalRate(tx) {
 }
 /**
  * Function to select cars by color
- * @param {org.example.carrental.SelectCarsByColor} tx - the SelectCarsByColor query
+ * @param {org.example.carrental.SelectCarsByColor} tx - selectCarsByColor query
  * @transaction
  */
 async function selectCarsByColor(tx) {
