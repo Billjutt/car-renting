@@ -1,10 +1,4 @@
-rule ManagersCheckLicense {
-  description: "Allow managers to check licenses"
-  participant: "org.example.carrental.Manager"
-  operation: ALL
-  resource: "org.example.carrental.License"
-  action: ALLOW
-}
+
 
 rule ManagersCheckCar {
   description: "Allow manager to check cars"
@@ -84,9 +78,16 @@ rule CustomerTransactions {
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
+rule ManagersCheckLicense {
+  description: "Allow managers to check licenses"
+  participant: "org.example.carrental.Manager"
+  operation: READ, UPDATE
+  resource: "org.example.carrental.License"
+  action: ALLOW
+}
 rule CustomerCanSeeThemself{
   description: "Allow customer can see themself"
-  participant: "org.example.carrental.Manager"
+  participant: "org.example.carrental.Customer"
   operation: ALL
   resource: "org.example.carrental.Customer"
   action: ALLOW
