@@ -260,13 +260,13 @@ async function createDemoParticipants() {
 
     // create customers
     const customerRegistry = await getParticipantRegistry(namespace + '.Customer');
-    const customer1 = factory.newResource(namespace, 'Customer', 'alice');
+    const customer1 = factory.newResource(namespace, 'Customer', 'Alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
     customer1.address = { country: 'UK' }; 
     await customerRegistry.add(customer1);
 
-    const customer2 = factory.newResource(namespace, 'Customer', 'bob');
+    const customer2 = factory.newResource(namespace, 'Customer', 'Bob');
     customer2.name = 'Bob';
     customer2.lastName = 'Appleton';
     customer2.address = { country: 'UK' }; 
@@ -274,15 +274,15 @@ async function createDemoParticipants() {
 
     // create managers
     const managerRegistry = await getParticipantRegistry(namespace + '.Manager');
-    const manager = factory.newResource(namespace, 'Manager', 'matias');
-    manager.name = 'Matías';
+    const manager = factory.newResource(namespace, 'Manager', 'Matias');
+    manager.name = 'Matias';
     manager.lastName = 'Manager';
     manager.address = { country: 'UK' }; 
     await managerRegistry.add(manager);
 
     // create sales managers
     const salesManagerRegistry = await getParticipantRegistry(namespace + '.SalesManager');
-    const salesManager = factory.newResource(namespace, 'SalesManager', 'ella');
+    const salesManager = factory.newResource(namespace, 'SalesManager', 'Ella');
     salesManager.name = 'Ella';
     salesManager.lastName = 'SalesManager';
     salesManager.address = { country: 'UK' }; 
@@ -290,7 +290,7 @@ async function createDemoParticipants() {
 
     // create customer support
     const customerSupportRegistry = await getParticipantRegistry(namespace + '.CustomerSupport');
-    const customerSupport = factory.newResource(namespace, 'CustomerSupport', 'charlie');
+    const customerSupport = factory.newResource(namespace, 'CustomerSupport', 'Charlie');
     customerSupport.name = 'Charlie';
     customerSupport.lastName = 'CustomerSupport';
     customerSupport.address = { country: 'UK' }; 
@@ -299,12 +299,12 @@ async function createDemoParticipants() {
     // create licenses
     const licenseRegistry = await getAssetRegistry(namespace + '.License');
     const license1 = factory.newResource(namespace, 'License', 'license1');
-    license1.customer = factory.newRelationship(namespace, 'Customer', 'alice');
+    license1.customer = factory.newRelationship(namespace, 'Customer', 'Alice');
     license1.licenseStatus = LicenseStatus.PENDING;
     await licenseRegistry.add(license1);
 
     const license2 = factory.newResource(namespace, 'License', 'license2');
-    license2.customer = factory.newRelationship(namespace, 'Customer', 'bob');
+    license2.customer = factory.newRelationship(namespace, 'Customer', 'Bob');
     license2.licenseStatus = LicenseStatus.PENDING;
     await licenseRegistry.add(license2);
 
