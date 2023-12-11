@@ -264,7 +264,10 @@ async function createDemoParticipants() {
     const customer1 = factory.newResource(namespace, 'Customer', 'alice');
     customer1.name = 'Alice';
     customer1.lastName = 'Hamilton';
+    customer1.license = factory.newRelationship(namespace, 'License', 'license')
+    console.log(customer1);
     ID1= customer1.license.licenseId;
+    
     status1 = customer1.license.licenseStatus;
    
     customer1.address = { country: 'UK' };

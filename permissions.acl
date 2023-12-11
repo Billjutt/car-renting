@@ -89,6 +89,15 @@ rule CustomerCanSeeThemself{
   resource: "org.example.carrental.Customer"
   action: ALLOW
 }
+rule CustomerCanDOoperatıononcar{
+  description: "Allow customer can see themself"
+  participant(p): "org.example.carrental.Customer"
+  operation: CREATE,UPDATE,READ
+  resource(r): "org.example.carrental.License"
+  condition:( p.getIdentifier() == r.customer.getIdentifier())
+  action: ALLOW
+}
+
 rule ManagerCanSeeEveryone{
   description: "Allow manager can see everyone"
   participant: "org.example.carrental.Manager"
