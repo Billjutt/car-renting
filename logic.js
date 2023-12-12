@@ -48,15 +48,33 @@ async function checkLicense(tx) {
     console.log(tx)
     const license = tx.license
     const licenseStatus = license.licenseStatus;
+    const securityStatus = license.licenseSecurityStatus;
 
     if (licenseStatus !== 'PENDING') {
         throw new Error('This license is in the wrong state to be processed');
-    } else {
+    } else{
+        
+            
+            if (securityStatus === 'EXPIRED') {
+                // Handle "EXPIRED" licenses as needed
+                // You can choose to throw an error, update some other fields, or take other actions here
+                // For example, you can throw an error like this:
+                throw new Error('This license is expired and cannot be approved.');
+            } else if (securityStatus === 'REVOKED') {
+                // Handle "REVOKED" licenses as needed
+                // You can choose to throw an error, update some other fields, or take other actions here
+                // For example, you can throw an error like this:
+                throw new Error('This license is revoked and cannot be approved.');
+            } else {
+                // If the license is in any other state, do nothing
+                // You can add additional handling here if needed
+                license.licenseStatus = 'APPROVED';
+            }
        
-        license.licenseStatus = 'APPROVED';
         
     }
-
+    
+    license.licenseStatus = 'APPROVED';
     // Update the license status
     
     const assetRegistry = await getAssetRegistry(namespace + '.License');

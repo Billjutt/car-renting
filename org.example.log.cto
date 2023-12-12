@@ -9,6 +9,7 @@ enum LicenseStatus {
 enum LicenseSecurityStatus{
   o EXPIRED
   o REVOKED
+  o ACTIVE
 }
 
 enum CarStatus {
@@ -28,8 +29,9 @@ concept Address{
 // ASSETS
 asset License identified by licenseId {
   o String licenseId
-  --> Customer customer /
+  --> Customer customer 
   o LicenseStatus licenseStatus
+  o LicenseSecurityStatus licenseSecurityStatus
   
 }
 
