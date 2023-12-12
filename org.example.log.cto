@@ -119,7 +119,7 @@ transaction AddCar {
 transaction CreateDemoParticipants {
 }
 transaction RemoveCarsByHighRentalRate {
-  --> Car car
+  
 }
 transaction SelectCarsByColor {
   o Car color

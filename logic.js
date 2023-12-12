@@ -217,7 +217,7 @@ async function removeCarsByHighRentalRate(tx) {
     const carRegistry = await getAssetRegistry(namespace + '.Car');
 
     // Execute the query to select cars with high rental rate
-    const results = await query('RemoveCarsByHighRentalRate');
+    const results = await query('removeCarsByHighRentalRate');
 
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
