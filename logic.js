@@ -267,6 +267,7 @@ async function createDemoParticipants() {
     customer1.license = factory.newRelationship(namespace, 'License', '0001')
     let license12 = factory.newRelationship(namespace, 'License', '0002')
     license12.licenseStatus = "PENDING"
+    s
     customer2.license = license12
    
     let personAddress1 = factory.newConcept(namespace, 'Address', '0003');
