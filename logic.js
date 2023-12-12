@@ -262,9 +262,12 @@ async function selectCarsByColor(tx) {
     console.log(results);
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
-
+        const whitecar = results.filter(function (car) {
+            return car.color === 'WHITE';
+        });
+        
         // select the car from the registry
-        await carRegistry.select(car);
+        await carRegistry.select(whitecar);
     }
 }
 /**
