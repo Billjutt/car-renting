@@ -52,7 +52,14 @@ rule SalesManagersCanAddCar {
 rule CustomerSupportsCanSelectCar {
   description: "Allow customer support to check cars"
   participant: "org.example.carrental.CustomerSupport"
-  operation: CREATE,READ,UPDATE
+  operation: READ,UPDATE
+  resource: "org.example.carrental.SelectCar"
+  action: ALLOW
+}
+rule CustomerCanSelectCar {
+  description: "Allow customer support to check cars"
+  participant: "org.example.carrental.Customer"
+  operation: CREATE
   resource: "org.example.carrental.SelectCar"
   action: ALLOW
 }
