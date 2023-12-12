@@ -25,28 +25,10 @@ rule SalesManagersCanAddCar {
 }
 
 
-rule CustomerSupportsCanCheckCar {
-  description: "Allow customer support to check cars"
-  participant: "org.example.carrental.CustomerSupport"
-  operation: READ,UPDATE
-  resource: "org.example.carrental.Car"
-  action: ALLOW
-}
 
-rule CustomerSupportsCanReadCheckLicense {
-  description: "Allow customer support to check license"
-  participant: "org.example.carrental.CustomerSupport"
-  operation: READ
-  resource: "org.example.carrental.CheckLicense"
-  action: ALLOW
-}
-rule CustomerCanCreatelicense{
-  description: "Allow customer can see own license"
-  participant: "org.example.carrental.Customer"
-  operation: CREATE
-  resource: "org.example.carrental.License"
-  action: ALLOW
-}
+
+
+
 
 
 /* SalesManager Rules
@@ -67,7 +49,13 @@ rule CustomerCanCreatelicense{
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
-
+rule CustomerSupportsCanSelectCar {
+  description: "Allow customer support to check cars"
+  participant: "org.example.carrental.CustomerSupport"
+  operation: CREATE,READ,UPDATE
+  resource: "org.example.carrental.SelectCar"
+  action: ALLOW
+}
 
 rule ManagerCanCheckLicense {
   description: "Allow customer support to check license"
