@@ -9,6 +9,12 @@ query selectCarsByColor {
   description: "Select cars based on color"
   statement:
       SELECT org.example.carrental.Car
-          WHERE (_$color == color)
+          WHERE (color == _$color )
 }
 
+query FindCarsByStatus {
+  description: "Select rental agreements by their status"
+  statement:
+    SELECT org.example.carrental.Car
+      WHERE (carStatus == _$carStatus)
+}
