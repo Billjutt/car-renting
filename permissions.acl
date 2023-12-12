@@ -70,11 +70,9 @@ rule CustomerTransactions {
 
 rule CustomerUploadTransaction {
     description: "Allow customer to create and view license"
-    participant(p): "org.example.carrental.Customer"
+    participant: "org.example.carrental.Customer"
     operation: CREATE
-    resource(r): "org.example.carrental.License"
-    transaction(tx): "org.example.carrental.UploadLicense"
-    condition: (r.getIdentifier() == p.getIdentifier())
+    resource: "org.example.carrental.UploadLicense"
     action: ALLOW
 }
 rule CarVisiblebleToAll {
@@ -101,7 +99,7 @@ rule CustomerCanSeeThemself{
 }
 
 rule CustomerCanSeeownlicense{
-  description: "Allow customer can see themself"
+  description: "Allow customer can see own license"
   participant(p): "org.example.carrental.Customer"
   operation: CREATE,UPDATE,READ
   resource(r): "org.example.carrental.License"
