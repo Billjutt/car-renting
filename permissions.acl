@@ -1,12 +1,5 @@
 
 
-rule ManagersCheckCar {
-  description: "Allow manager to check cars"
-  participant: "org.example.carrental.Manager"
-  operation: ALL
-  resource: "org.example.carrental.Car"
-  action: ALLOW
-}
 
 rule SalesManagersCheckCar {
   description: "Allow sales manager to check cars"
@@ -49,6 +42,13 @@ rule SalesManagersCanAddCar {
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
+rule ManagersCheckCar {
+  description: "Allow manager to check cars"
+  participant: "org.example.carrental.Manager"
+  operation: ALL
+  resource: "org.example.carrental.CheckCar"
+  action: ALLOW
+}
 rule CustomerSupportsCanSelectCar {
   description: "Allow customer support to check cars"
   participant: "org.example.carrental.CustomerSupport"
@@ -79,9 +79,9 @@ rule CustomerUploadTransaction {
     action: ALLOW
 }
 rule CarVisiblebleToAll {
-  description: "Allow managers to check licenses"
+  description: "Allow participant see cars"
   participant: "org.hyperledger.composer.system.Participant"
-  operation: READ
+  operation: READ, UPDATE
   resource: "org.example.carrental.Car"
   action: ALLOW
 }
