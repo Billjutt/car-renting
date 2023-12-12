@@ -263,7 +263,7 @@ async function selectCarsByColor(tx) {
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
         const whitecar = results.filter(function (car) {
-            return car.color === 'WHITE';
+            return car.color === 'white';
         });
         
         // select the car from the registry
