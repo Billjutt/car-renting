@@ -1,47 +1,3 @@
-
-
-
-rule SalesManagersCheckCar {
-  description: "Allow sales manager to check cars"
-  participant: "org.example.carrental.SalesManager"
-  operation: READ,UPDATE, CREATE
-  resource: "org.example.carrental.Car"
-  action: ALLOW
-}
-
-rule SalesManagersCanAddCar {
-  description: "Allow sales manager to add cars"
-  participant: "org.example.carrental.SalesManager"
-  operation: READ,UPDATE, CREATE
-  resource: "org.example.carrental.Car"
-  action: ALLOW
-}
-
-
-
-
-
-
-
-
-/* SalesManager Rules
-	1- Sales managers can check the license.
-    2- Sales managers can check the car.
-*/
-
-
-/* Manager Rules
-	1- Manager can check the license.
-    2- Manager can add the car.
-    3- Manager can check the car.
-*/
-
-
-
-/* CustomerSupport Rules
-	1- CustomerSupport can read and check the license of customer.
-    2- CustomerSupport can check the car.
-*/
 rule ManagersCheckCar {
   description: "Allow manager to check cars"
   participant: "org.example.carrental.Manager"
@@ -50,14 +6,14 @@ rule ManagersCheckCar {
   action: ALLOW
 }
 rule CustomerSupportsCanSelectCar {
-  description: "Allow customer support to check cars"
+  description: "Allow customer support to read and update select cars"
   participant: "org.example.carrental.CustomerSupport"
   operation: READ,UPDATE
   resource: "org.example.carrental.SelectCar"
   action: ALLOW
 }
 rule CustomerCanSelectCar {
-  description: "Allow customer support to check cars"
+  description: "Allow customer to select cars"
   participant: "org.example.carrental.Customer"
   operation: CREATE
   resource: "org.example.carrental.SelectCar"
