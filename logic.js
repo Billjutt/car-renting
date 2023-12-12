@@ -258,18 +258,19 @@ async function selectCarsByColor(tx) {
     const carRegistry = await getAssetRegistry(namespace + '.Car');
 
     // Execute the query to select cars by color
-    const results = await query('selectCarsByColor');
-    console.log(results);
+    const results = await query('selectCarsByColor', { color: 'WHITE' });
+
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
-        const whitecar = results.filter(function (car) {
-            return car.color === 'white';
-        });
-        
-        // select the car from the registry
-        await carRegistry.select(whitecar);
+
+        // Modify the car or perform actions on it
+        car.someProperty = 'NewValue'; // Replace this with the action you want to perform on the car
+
+        // Update the car in the registry
+        await carRegistry.update(car);
     }
 }
+
 /**
 * Create the participants needed for the demo
 * @param {org.example.carrental.CreateDemoParticipants} createDemoParticipants - the CreateDemoParticipants transaction
