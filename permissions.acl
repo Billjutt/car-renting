@@ -33,7 +33,21 @@ rule CustomerSupportsCanCheckCar {
   action: ALLOW
 }
 
+rule CustomerSupportsCanReadCheckLicense {
+  description: "Allow customer support to check license"
+  participant: "org.example.carrental.CustomerSupport"
+  operation: READ,UPDATE
+  resource: "org.example.carrental.CheckLicense"
+  action: ALLOW
+}
 
+rule CustomerTransactions {
+  description: "Allow a customer to upload driving license"
+  participant: "org.example.carrental.Customer"
+  operation: ALL
+  resource: "org.example.carrental.UploadLicense"
+  action: ALLOW
+}
 
 /* SalesManager Rules
 	1- Sales managers can check the license.
@@ -53,27 +67,15 @@ rule CustomerSupportsCanCheckCar {
 	1- CustomerSupport can read and check the license of customer.
     2- CustomerSupport can check the car.
 */
-rule CustomerSupportsCanReadCheckLicense {
-  description: "Allow customer support to check license"
-  participant: "org.example.carrental.CustomerSupport"
-  operation: READ,UPDATE
-  resource: "org.example.carrental.CheckLicense"
-  action: ALLOW
-}
 
-rule CustomerTransactions {
-  description: "Allow a customer to upload driving license"
-  participant: "org.example.carrental.Customer"
-  operation: ALL
-  resource: "org.example.carrental.UploadLicense"
-  action: ALLOW
-}
-rule CustomerCanCreateLicense{
-  description: "Allow customer can see themself"
-  participant: "org.example.carrental.Customer"
-  operation: CREATE,UPDATE,READ
-  resource: "org.example.carrental.License"
-  action: ALLOW
+rule CustomerUploadTransaction {
+    description: "Allow customer to create and view license"
+    participant(p): "org.example.carrental.Customer"
+    operation: CREATE
+    resource(r): "org.example.carrental.License"
+    transaction(tx): "org.example.carrental.UploadLicense"
+    condition: (r.getIdentifier() == p.getIdentifier())
+    action: ALLOW
 }
 rule CarVisiblebleToAll {
   description: "Allow managers to check licenses"
