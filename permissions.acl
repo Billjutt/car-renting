@@ -101,7 +101,7 @@ rule CustomerCanSeeThemself{
 rule CustomerCanSeeownlicense{
   description: "Allow customer can see own license"
   participant(p): "org.example.carrental.Customer"
-  operation: CREATE,UPDATE,READ
+  operation: UPDATE,READ
   resource(r): "org.example.carrental.License"
   condition:( p.getIdentifier() == r.customer.getIdentifier())
   action: ALLOW
