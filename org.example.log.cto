@@ -28,9 +28,9 @@ concept Address{
 // ASSETS
 asset License identified by licenseId {
   o String licenseId
-  --> Customer customer //need concept
+  --> Customer customer /
   o LicenseStatus licenseStatus
-  //no need check nationality 
+  
 }
 
 asset Car identified by carId {
@@ -44,7 +44,7 @@ asset Car identified by carId {
   o CarStatus carStatus
  
 }
-  //need to add renting day
+
 
 // PARTICIPANTS
 abstract participant CarRenting identified by personId{
