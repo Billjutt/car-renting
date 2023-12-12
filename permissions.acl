@@ -111,7 +111,7 @@ rule CustomerCanSeeownlicense{
   participant(p): "org.example.carrental.Customer"
   operation: CREATE,UPDATE,READ
   resource(r): "org.example.carrental.License"
-  condition:( p.getIdentifier() == r.license.getIdentifier())
+  condition:( p.getIdentifier() == r.customer.getIdentifier())
   action: ALLOW
 }
 
