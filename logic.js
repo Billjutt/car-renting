@@ -1,21 +1,4 @@
 /**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
-/* global getFactory getAssetRegistry getParticipantRegistry emit */
-
-/**
  * Create the License asset
  * @param {org.example.carrental.UploadLicense} uploadLicense - the UploadLicense transaction
  * @transaction
@@ -56,18 +39,15 @@ async function checkLicense(tx) {
         
             
             if (securityStatus === 'EXPIRED') {
-                // Handle "EXPIRED" licenses as needed
-                // You can choose to throw an error, update some other fields, or take other actions here
-                // For example, you can throw an error like this:
+               
                 throw new Error('This license is expired and cannot be approved.');
             } else if (securityStatus === 'REVOKED') {
                 // Handle "REVOKED" licenses as needed
-                // You can choose to throw an error, update some other fields, or take other actions here
-                // For example, you can throw an error like this:
+             
                 throw new Error('This license is revoked and cannot be approved.');
             } else {
                 // If the license is in any other state, do nothing
-                // You can add additional handling here if needed
+            
                 license.licenseStatus = 'APPROVED';
             }
        
@@ -263,11 +243,10 @@ async function selectCarsByColor(tx) {
     for (let i = 0; i < results.length; i++) {
         let car = results[i];
 
-        // Modify the car or perform actions on it
-        car.someProperty = 'NewValue'; // Replace this with the action you want to perform on the car
+      
 
         // Update the car in the registry
-        await carRegistry.update(car);
+        await carRegistry.get(car);
     }
 }
 
